@@ -19,7 +19,7 @@ _delay_ms(1000);
 
 int main(void){
 
-    ADMUX|=(1<<REFS0)|(1<<MUX1);
+    ADMUX|=(1<<REFS0)|(1<<MUX1)|(1<<ADLAR);
     ADCSRA|=(1<<ADEN)|(1<<ADPS2);
     DDRD|=0xFC;
     DDRB|=0X0F;
@@ -35,8 +35,10 @@ int main(void){
         ADCSRA|=(1<<ADIF);
         PORTD&=~(0xFC);
         PORTB&=~(0x0F);
-        PORTD|=(alow<<2);
-        PORTB|=((ahigh&0x03)<<2)|((alow>>6)&0x03);
+        PORTD|=((ahigh<<4)&0xF0)|((alow>>4)&0x0C); 
+        PORTB|=(ahigh>>4)&0x0F; 
+    //  PORTD|=(alow<<2);
+      //  PORTB|=((ahigh&0x03)<<2)|((alow>>6)&0x03);
     }
     return 0;
 }
