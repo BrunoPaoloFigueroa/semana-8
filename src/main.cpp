@@ -15,7 +15,7 @@ PORTB&=~0X0F;
 _delay_ms(1000);
     }
 }
-*/
+
 
 int main(void){
 
@@ -42,6 +42,24 @@ int main(void){
     }
     return 0;
 }
+*/
+int main(void){
 
+    DDRD|=0xF0;
+    char a=0x00;
 
+    while(1){
+
+        PORTD = (PORTD & 0x0F) | ((a << 4) & 0xF0);;
+        _delay_ms(500);
+        
+        a++;
+        if(a==10){
+            a=0;
+        }
+
+    }
+
+    return 0;
+}
 
